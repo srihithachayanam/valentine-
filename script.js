@@ -30,46 +30,30 @@ error.innerText="Try again with your stupid nemo brain! i still like u ❤️";
 
 let firstCard=null;
 
+document.querySelectorAll(".card").forEach(card=>{
 
-let cards=document.querySelectorAll(".card");
-
-
-cards.forEach(card=>{
-
-
-card.addEventListener("click", function(){
-
+card.addEventListener("click", ()=>{
 
 if(firstCard==null){
 
-firstCard=this;
-
-this.style.border="4px solid red";
+firstCard=card;
+card.style.border="4px solid red";
 
 }
 else{
 
-// swap images
-
-let temp=this.src;
-
-this.src=firstCard.src;
-
+let temp=card.src;
+card.src=firstCard.src;
 firstCard.src=temp;
 
-
 firstCard.style.border="4px solid white";
-
 firstCard=null;
-
 
 checkOrder();
 
 }
 
-
 });
-
 
 });
 
@@ -86,12 +70,12 @@ let cards=document.querySelectorAll(".card");
 
 let correct=[
 
-"images/img1.png",
-"images/img2.png",
-"images/img3.png",
-"images/img4.png",
-"images/img5.png",
-"images/img6.png"
+"img1.png",
+"img2.png",
+"img3.png",
+"img4.png",
+"img5.png",
+"img6.png"
 
 ];
 
@@ -99,9 +83,9 @@ let current=[];
 
 cards.forEach(card=>{
 
-let path=card.getAttribute("src");
+let filename = card.src.split("/").pop();
 
-current.push(path);
+current.push(filename);
 
 });
 
@@ -155,3 +139,4 @@ container.appendChild(div);
 }
 
 }
+
