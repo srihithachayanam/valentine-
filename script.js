@@ -16,12 +16,11 @@ if(input === password){
 
 passwordPage.classList.remove("active");
 gamePage.classList.add("active");
-enableDrag();
 
 }
 else{
 
-error.innerText="Wrong password. Try again with your stupid nemo brain. I still like you 💖";
+error.innerText="Try again with your stupid nemo brain! i still like u ❤️";
 
 }
 
@@ -29,39 +28,52 @@ error.innerText="Wrong password. Try again with your stupid nemo brain. I still 
 
 
 
-let container=document.getElementById("gameContainer");
+let firstCard=null;
 
-let dragged;
-
-
-function enableDrag(){
 
 let cards=document.querySelectorAll(".card");
 
+
 cards.forEach(card=>{
 
-card.addEventListener("dragstart",function(){
 
-dragged=this;
+card.addEventListener("click", function(){
 
-});
 
-card.addEventListener("dragover",function(e){
+if(firstCard==null){
 
-e.preventDefault();
+firstCard=this;
 
-});
-
-card.addEventListener("drop",function(){
-
-container.insertBefore(dragged,this);
-checkOrder();
-
-});
-
-});
+this.style.border="4px solid red";
 
 }
+else{
+
+// swap images
+
+let temp=this.src;
+
+this.src=firstCard.src;
+
+firstCard.src=temp;
+
+
+firstCard.style.border="4px solid white";
+
+firstCard=null;
+
+
+checkOrder();
+
+}
+
+
+});
+
+
+});
+
+
 
 
 
@@ -87,7 +99,9 @@ let current=[];
 
 cards.forEach(card=>{
 
-current.push(card.getAttribute("src"));
+let path=card.getAttribute("src");
+
+current.push(path);
 
 });
 
@@ -115,57 +129,29 @@ letterPage.classList.add("active");
 
 
 
+
 function confetti(){
 
 let container=document.getElementById("confetti-container");
 
 let emojis=["💖","💕","💗","💘","✨"];
 
-for(let i=0;i<40;i++){
+for(let i=0;i<50;i++){
 
 let div=document.createElement("div");
 
-div.className="confetti";
-
 div.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+
+div.style.position="absolute";
 
 div.style.left=Math.random()*100+"vw";
 
-div.style.fontSize="24px";
+div.style.top=Math.random()*100+"vh";
 
-div.style.animationDuration="3s";
+div.style.fontSize="24px";
 
 container.appendChild(div);
 
-setTimeout(()=>div.remove(),3000);
-
 }
 
 }
-
-
-
-function createFloatingHeart(){
-
-let container=document.getElementById("floating-hearts");
-
-let heart=document.createElement("div");
-
-heart.className="floating-heart";
-
-heart.innerText="💖";
-
-heart.style.left=Math.random()*100+"vw";
-
-heart.style.fontSize="20px";
-
-heart.style.animationDuration="6s";
-
-container.appendChild(heart);
-
-setTimeout(()=>heart.remove(),6000);
-
-}
-
-
-setInterval(createFloatingHeart,500);
